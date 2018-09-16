@@ -1,4 +1,4 @@
-package br.com.stelo.gsurf.token.adapter.db.entity;
+package br.com.stelo.gsurf.token.repositoryadapters.db.entity;
 
 import java.io.Serializable;
 import java.util.Date;

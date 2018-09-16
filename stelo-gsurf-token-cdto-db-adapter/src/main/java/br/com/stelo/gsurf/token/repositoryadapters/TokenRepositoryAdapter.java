@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.stelo.gsurf.token.adapter.db.entity.TokenModuloTerminalEntity;
-import br.com.stelo.gsurf.token.adapter.db.impl.TokenModuloTerminalDAO;
+import br.com.stelo.gsurf.token.repositoryadapters.db.entity.TokenModuloTerminalEntity;
+import br.com.stelo.gsurf.token.repositoryadapters.db.impl.TokenModuloTerminalDAO;
 import br.com.stelo.gsurf.token.models.TokenGsurf;
 import br.com.stelo.gsurf.token.models.TokenModuloTerminal;
 import br.com.stelo.gsurf.token.ports.TokenRepository;

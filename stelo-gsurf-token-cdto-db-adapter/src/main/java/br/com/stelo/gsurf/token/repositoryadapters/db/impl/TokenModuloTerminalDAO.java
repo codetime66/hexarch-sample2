@@ -1,4 +1,4 @@
-package br.com.stelo.gsurf.token.adapter.db.impl;
+package br.com.stelo.gsurf.token.repositoryadapters.db.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -6,8 +6,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.stelo.gsurf.token.adapter.db.ITokenModuloTerminalDAO;
-import br.com.stelo.gsurf.token.adapter.db.entity.TokenModuloTerminalEntity;
+import br.com.stelo.gsurf.token.repositoryadapters.db.ITokenModuloTerminalDAO;
+import br.com.stelo.gsurf.token.repositoryadapters.db.entity.TokenModuloTerminalEntity;
 import br.com.stelo.gsurf.token.models.TokenModuloTerminal;
 
 @Transactional
