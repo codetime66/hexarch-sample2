@@ -2,7 +2,6 @@ package br.com.stelo.gsurf.token.controllers;
 
 import br.com.stelo.gsurf.token.models.ErrorMessage;
 import br.com.stelo.gsurf.token.models.TokenGsurf;
-import br.com.stelo.gsurf.token.models.TokenModuloTerminal;
 import br.com.stelo.gsurf.token.ports.GetTokenService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.List;
-
 @RestController
+@RequestMapping("gsurf-token")
+@CrossOrigin
 public class TokenRestController {
 
 	@Autowired
 	private GetTokenService getTokenService;
 
-	@RequestMapping(value = "/token", method = RequestMethod.GET)
+    @GetMapping
 	public ResponseEntity getToken() {
 		TokenGsurf tmt = getTokenService.getToken();
 		if (tmt != null) {

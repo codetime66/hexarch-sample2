@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "token", "expiration" })
@@ -15,6 +16,7 @@ public class TokenGsurf {
 	private String token;
 
 	@JsonProperty("expiration")
+	@JsonDeserialize(using = CustomDateDeserializer.class)
 	private Date expiration;
 
 	@JsonProperty("token")
