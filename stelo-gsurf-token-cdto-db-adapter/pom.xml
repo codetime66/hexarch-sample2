@@ -55,6 +55,12 @@
             <artifactId>spring-web</artifactId>
         </dependency>
  
+ 		<dependency>
+			<groupId>stelo</groupId>
+			<artifactId>admin-commons-utils-cripto</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+ 
     </dependencies>
 
 </project>

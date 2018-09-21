@@ -3,6 +3,12 @@ package br.com.stelo.gsurf.token.repositoryadapters;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +31,9 @@ public class TokenRepositoryAdapter implements TokenRepository {
     @Value("${gsurf.token.url.srv}")
     private String gsurf_token_url_srv;
 
+    @Value("${gsurf_ws_key}")
+    private String gsurf_ws_key;
+    
     @Autowired
     private TokenModuloTerminalDAO tokenModuloTerminalDAO;
 
@@ -50,14 +59,28 @@ public class TokenRepositoryAdapter implements TokenRepository {
 
     @Override
     public TokenGsurf gerarToken() {
-
-        TokenGsurf tokenGsurf = restTemplate.getForObject(
-                gsurf_token_url_srv, TokenGsurf.class);
-        log.info(tokenGsurf.toString());
-
-        return tokenGsurf;
+    	
+    	log.info("TokenRepositoryAdapter.gerarToken(): gsurf_token_url_srv: "+gsurf_token_url_srv);
+    	log.info("TokenRepositoryAdapter.gerarToken(): gsurf_ws_key: "+gsurf_ws_key);
+    	
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        //headers.add("ws_key", "5a366530-f804-4651-aafb-a84d6dca0220");
+        headers.add("ws_key", gsurf_ws_key );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        ResponseEntity<TokenGsurf> tokenGsurfEntity = restTemplate.exchange(gsurf_token_url_srv, HttpMethod.GET, entity, TokenGsurf.class, 100);
+        log.info("TokenRepositoryAdapter.gerarToken(): tokenGsurfEntity.getStatusCode() :"+tokenGsurfEntity.getStatusCode());
+        log.info("TokenRepositoryAdapter.gerarToken(): tokenGsurfEntity.getBody().getExpiration() : "+tokenGsurfEntity.getBody().getExpiration());
+        if (tokenGsurfEntity.getStatusCode() == HttpStatus.OK) {
+        	log.info("TokenRepositoryAdapter.gerarToken(): tokenGsurfEntity.getBody().getToken()="+tokenGsurfEntity.getBody().getToken());
+        	return tokenGsurfEntity.getBody();
+		} else {
+			log.info("TokenRepositoryAdapter.gerarToken(): null");
+			return null;
+		}         	
     }
-
+    
     @Override
     public TokenGsurf getToken() {
         TokenGsurf tokenGsurf = null;
@@ -78,4 +101,5 @@ public class TokenRepositoryAdapter implements TokenRepository {
     	log.info("### tokenExpirado: dataExpiracao="+dataExpiracao);
         return dataExpiracao.before(new Date());
     }
+    
 }
