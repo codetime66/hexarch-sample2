@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="warn" strict="true" monitorInterval="60">
+
+	<Properties>
+		<!-- Layout http://logging.apache.org/log4j/2.x/manual/layouts.html -->
+		<Property name="LOG_PATTERN">[%d{DEFAULT}] - %5p %c --- %m%n</Property>
+		<Property name="BASE_PATH">/app/services/stelo-gsurf-token/logs</Property>
+		<Property name="BASE_SERVICE_PATH">/app/services/</Property>
+		<Property name="APP_NAME">stelo-gsurf-token</Property>
+		<Property name="ROLLING_PATTERN">-%d{dd}.log.gz</Property>
+	</Properties>
+
+	<!-- Appenders: http://logging.apache.org/log4j/2.x/manual/appenders.html -->
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+
+		<RollingFile name="APPLICATION" fileName="${BASE_PATH}/${APP_NAME}.log"
+				filePattern="${BASE_PATH}/${APP_NAME}${ROLLING_PATTERN}">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+				<Policies>
+					<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+				</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+
+        <RollingFile name="WEB_BROWSER_LOGGING"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_WEB_BROWSER_LOGGING.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_WEB_BROWSER_LOGGING${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <!-- WEB_BROWSER_LOGGING -->
+        <Logger name="WEB_BROWSER_LOGGING" level="TRACE" additivity="false">
+            <AppenderRef ref="WEB_BROWSER_LOGGING"/>
+        </Logger>
+
+        <Logger name="org.springframework" level="INFO" additivity="false">
+			<AppenderRef ref="APPLICATION" />
+			<AppenderRef ref="CONSOLE" />
+		</Logger>
+
+		<Logger name="org.hibernate" level="INFO" additivity="false">
+			<AppenderRef ref="APPLICATION" />
+			<AppenderRef ref="CONSOLE" />
+		</Logger>
+
+		<Logger name="org.apache" level="WARN" additivity="false">
+			<AppenderRef ref="APPLICATION" />
+			<AppenderRef ref="CONSOLE" />
+		</Logger>
+
+		<Logger name="stelo.admin" level="INFO" additivity="false">
+			<AppenderRef ref="APPLICATION" />
+			<AppenderRef ref="CONSOLE" />
+		</Logger>
+
+		<Logger name="br.com.stelo.maquina.inativar" level="INFO" additivity="false">
+			<AppenderRef ref="APPLICATION" />
+			<AppenderRef ref="CONSOLE" />
+		</Logger>
+
+		<Logger name="ADMIN" level="INFO" additivity="false">
+			<AppenderRef ref="APPLICATION" />
+			<AppenderRef ref="CONSOLE" />
+		</Logger>
+
+		<Root level="INFO">
+			<AppenderRef ref="APPLICATION" />
+			<AppenderRef ref="CONSOLE" />
+		</Root>
+	</Loggers>
+
+</Configuration>

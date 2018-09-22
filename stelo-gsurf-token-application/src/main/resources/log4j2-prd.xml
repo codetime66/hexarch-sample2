@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="DEBUG" strict="true"
+               monitorInterval="60">
+
+    <Properties>
+        <!-- Layout http://logging.apache.org/log4j/2.x/manual/layouts.html -->
+        <Property name="LOG_PATTERN">[%d{ABSOLUTE}] %5p %t --- %m on %c{1} %c{10}%n</Property>
+        <Property name="BASE_SERVICE_PATH">/app/services/</Property>
+        <Property name="APP_NAME">stelo-gsurf-token</Property>
+        <Property name="ROLLING_PATTERN">-%d{dd}.log.gz</Property>
+    </Properties>
+
+    <!-- Appenders: http://logging.apache.org/log4j/2.x/manual/appenders.html -->
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <RollingFile name="METRIC"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_METRIC.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_METRIC${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="ADMIN"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_ADMIN.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_ADMIN${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="SPRING"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SPRING.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SPRING${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="SQL_BASE"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SQL_BASE.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SQL_BASE${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="SQL_STAT"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SQL_STAT.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SQL_STAT${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="SQL_CACHE"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SQL_CACHE.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SQL_CACHE${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="SQL_PARAM"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SQL_PARAM.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SQL_PARAM${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="SQL_VALUE"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SQL_VALUE.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_SQL_VALUE${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="HIKARI"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_HIKARI.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_HIKARI${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="WEB_BROWSER_LOGGING"
+                     fileName="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_WEB_BROWSER_LOGGING.log"
+                     filePattern="${BASE_SERVICE_PATH}/${APP_NAME}/logs/${APP_NAME}_WEB_BROWSER_LOGGING${ROLLING_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <!-- WEB_BROWSER_LOGGING -->
+        <Logger name="WEB_BROWSER_LOGGING" level="TRACE" additivity="false">
+            <AppenderRef ref="WEB_BROWSER_LOGGING"/>
+        </Logger>
+
+        <!-- HIKARI -->
+        <Logger name="com.zaxxer.hikari" level="ERROR" additivity="false">
+            <AppenderRef ref="HIKARI"/>
+        </Logger>
+
+        <!-- HIBERNATE -->
+        <Logger name="org.hibernate" level="WARN" additivity="false">
+            <AppenderRef ref="SQL_BASE"/>
+        </Logger>
+        <!-- SQL statements in HIBERNATE -->
+        <logger name="org.hibernate.SQL" level="WARN" additivity="false">
+            <AppenderRef ref="SQL_BASE"/>
+        </logger>
+        <!-- JDBC bind parameters in HIBERNATE -->
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="WARN" additivity="false">
+            <AppenderRef ref="SQL_PARAM"/>
+        </logger>
+        <!-- JDBC extract values in HIBERNATE -->
+        <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="WARN" additivity="false">
+            <AppenderRef ref="SQL_VALUE"/>
+        </logger>
+        <!-- statistics in HIBERNATE -->
+        <logger name="org.hibernate.stat" level="WARN" additivity="false">
+            <AppenderRef ref="SQL_STAT"/>
+        </logger>
+        <!-- cache in HIBERNATE -->
+        <logger name="org.hibernate.cache" level="WARN" additivity="false">
+            <AppenderRef ref="SQL_CACHE"/>
+        </logger>
+
+        <!-- JETTY -->
+        <Logger name="org.eclipse" level="ERROR" additivity="false">
+            <AppenderRef ref="SPRING"/>
+        </Logger>
+        <!-- APACHE -->
+        <Logger name="org.apache" level="ERROR" additivity="false">
+            <AppenderRef ref="SPRING"/>
+        </Logger>
+        <!-- SPRING -->
+        <Logger name="org.springframework" level="ERROR" additivity="false">
+            <AppenderRef ref="SPRING"/>
+        </Logger>
+
+        <!-- *** STELO *** -->
+        <!-- stelo.admin -->
+        <Logger name="stelo.admin" level="WARN" additivity="false">
+            <AppenderRef ref="ADMIN"/>
+        </Logger>
+        
+        <Logger name="br.com.stelo.maquina.inativar" level="WARN" additivity="false">
+            <AppenderRef ref="ADMIN"/>
+        </Logger>
+                
+        <!-- ADMIN -->
+        <Logger name="ADMIN" level="WARN" additivity="false">
+            <AppenderRef ref="ADMIN"/>
+        </Logger>
+
+        <!-- METRIC -->
+        <Logger name="METRIC" level="WARN" additivity="false">
+            <AppenderRef ref="ADMIN"/>
+            <AppenderRef ref="METRIC"/>
+        </Logger>
+
+        <Root level="DEBUG">
+            <AppenderRef ref="CONSOLE"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
