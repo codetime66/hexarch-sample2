@@ -7,4 +7,6 @@ public interface GetTokenService {
 	TokenModuloTerminal getTokenById(Long id);
 
 	TokenGsurf getToken();
+
+	TokenGsurf getRenewToken();
 }

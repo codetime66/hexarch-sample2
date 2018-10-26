@@ -23,4 +23,9 @@ public class GetTokenServiceAdapter implements GetTokenService {
 	public TokenGsurf getToken() {
 		return repository.getToken();
 	}
+	
+	@Override
+	public TokenGsurf getRenewToken() {
+		return repository.getRenewToken();
+	}	
 }

@@ -11,4 +11,5 @@ public interface TokenRepository {
     boolean update(TokenModuloTerminal tokenModuloTerminal);
 	TokenGsurf getToken();
 	boolean tokenExpirado(Date dataExpiracao);
+	TokenGsurf getRenewToken();
 }

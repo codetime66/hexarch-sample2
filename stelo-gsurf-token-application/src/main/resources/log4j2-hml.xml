@@ -5,9 +5,9 @@
 	<Properties>
 		<!-- Layout http://logging.apache.org/log4j/2.x/manual/layouts.html -->
 		<Property name="LOG_PATTERN">[%d{DEFAULT}] - %5p %c --- %m%n</Property>
-		<Property name="BASE_PATH">/app/services/stelo-gsurf-token/logs</Property>
+		<Property name="BASE_PATH">/app/services/stelo-admin-street-gsurf-token-service-api/logs</Property>
 		<Property name="BASE_SERVICE_PATH">/app/services/</Property>
-		<Property name="APP_NAME">stelo-gsurf-token</Property>
+		<Property name="APP_NAME">stelo-admin-street-gsurf-token-service-api</Property>
 		<Property name="ROLLING_PATTERN">-%d{dd}.log.gz</Property>
 	</Properties>
 

@@ -63,9 +63,7 @@ public class TokenRepositoryAdapter implements TokenRepository {
     	log.info("TokenRepositoryAdapter.gerarToken(): gsurf_token_url_srv: "+gsurf_token_url_srv);
     	log.info("TokenRepositoryAdapter.gerarToken(): gsurf_ws_key: "+gsurf_ws_key);
     	
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        //headers.add("ws_key", "5a366530-f804-4651-aafb-a84d6dca0220");
         headers.add("ws_key", gsurf_ws_key );
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(headers);
@@ -80,6 +78,14 @@ public class TokenRepositoryAdapter implements TokenRepository {
 			return null;
 		}         	
     }
+
+    @Override
+    public TokenGsurf getRenewToken() {
+        TokenGsurf tokenGsurf = null;
+        tokenGsurf = gerarToken();
+        update(tokenGsurf.toTokenModuloTerminal());
+        return tokenGsurf;
+    }    
     
     @Override
     public TokenGsurf getToken() {

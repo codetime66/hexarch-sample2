@@ -1,0 +1,16 @@
+[Unit]
+Description=stelo-admin-street-gsurf-token-service-api
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/app/java/jdk1.8.0_144/bin/java -jar -Xmx256m -Xmx256m -Dspring.profiles.active=hml /app/services/stelo-admin-street-gsurf-token-service-api/bin/stelo-gsurf-token-application-0.0.1.jar 
+
+[Install]
+WantedBy=multi-user.target
+
+

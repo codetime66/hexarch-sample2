@@ -4,6 +4,8 @@ import br.com.stelo.gsurf.token.models.ErrorMessage;
 import br.com.stelo.gsurf.token.models.TokenGsurf;
 import br.com.stelo.gsurf.token.ports.GetTokenService;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +20,10 @@ public class TokenRestController {
 	private GetTokenService getTokenService;
 
     @GetMapping
-	public ResponseEntity getToken() {
-		TokenGsurf tmt = getTokenService.getToken();
+	public ResponseEntity getToken(@RequestParam(name="renew", required=false) Boolean renewToken) {
+		TokenGsurf tmt = ( renewToken!=null && renewToken ) 
+				? getTokenService.getRenewToken()
+				: getTokenService.getToken();
 		if (tmt != null) {
 			return new ResponseEntity(tmt, HttpStatus.OK);
 		}
